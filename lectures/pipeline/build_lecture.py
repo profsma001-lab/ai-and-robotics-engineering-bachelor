@@ -500,9 +500,11 @@ def silence_for(seconds: float, out_m4a: Path) -> None:
 
 
 def slide_video(jpg: Path, audio: Path, out_mp4: Path) -> None:
+    # -t pins the still-image loop to the audio length (-shortest alone left ~10 s of extra picture)
+    dur = probe_duration(audio)
     ff(["-loop", "1", "-framerate", "2", "-i", str(jpg), "-i", str(audio),
         "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-tune", "stillimage", "-pix_fmt", "yuv420p",
-        "-r", "2", "-c:a", "aac", "-b:a", "128k", "-shortest", str(out_mp4)])
+        "-r", "2", "-c:a", "aac", "-b:a", "128k", "-t", f"{dur:.3f}", str(out_mp4)])
 
 
 def parse_only(spec: str, total: int) -> list[int]:
