@@ -373,7 +373,7 @@ def _network(ax, spec, w, h):
     for li in range(len(layers) - 1):
         for (x1, y1) in pos[li]:
             for (x2, y2) in pos[li + 1]:
-                ax.plot([x1, x2], [y1, y2], color=GOLD_HEX, alpha=0.28, lw=1.2, zorder=1)
+                ax.plot([x1, x2], [y1, y2], color=GOLD_HEX, alpha=0.45, lw=1.2, zorder=1)
     for li, layer in enumerate(pos):
         for (x, y) in layer:
             ax.scatter([x], [y], s=900, color=NODE_HEX, edgecolor=GOLD_HEX, lw=2.5, zorder=3)
