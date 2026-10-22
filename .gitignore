@@ -3,3 +3,6 @@
 lectures/courses/*/output/*preview*
 lectures/courses/*/slides/
 lectures/courses/*/work/
+
+# Python bytecode
+__pycache__/
