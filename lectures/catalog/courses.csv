@@ -1,0 +1,49 @@
+code,title,year,semester,credit_hours
+AI.101,Introduction to Artificial Intelligence,1,1,2.70
+AI.102,Robotics Fundamentals,1,1,2.70
+AI.103,Machine Learning,1,1,2.70
+AI.104,Computer Vision,1,1,2.70
+AI.105,Natural Language Processing,1,1,2.70
+AI.106,Control Systems,1,1,2.70
+AI.107,Data Structures and Algorithms,1,2,2.70
+AI.108,Digital Signal Processing,1,2,2.70
+AI.109,Embedded Systems,1,2,2.70
+AI.110,Human-Robot Interaction,1,2,2.70
+AI.111,Neural Networks,1,2,2.70
+AI.112,Computer Graphics,1,2,2.70
+AI.201,Internet of Things,2,1,2.70
+AI.202,Robotic Perception,2,1,2.70
+AI.203,Ethics in AI and Robotics,2,1,2.70
+AI.204,Autonomous Systems,2,1,2.70
+AI.205,Reinforcement Learning,2,1,2.70
+AI.206,Computer Architecture,2,1,2.70
+AI.207,Mobile Robotics,2,2,2.70
+AI.208,AI for Robotics,2,2,2.70
+AI.209,Fuzzy Logic,2,2,2.70
+AI.210,Deep Learning,2,2,2.70
+AI.211,Pattern Recognition,2,2,2.70
+AI.212,Robot Kinematics,2,2,2.70
+AI.301,Virtual Reality,3,1,2.70
+AI.302,Cyber-Physical Systems,3,1,2.70
+AI.303,Swarm Robotics,3,1,2.70
+AI.304,Robot Operating Systems,3,1,2.70
+AI.305,Cognitive Robotics,3,1,2.70
+AI.306,Biologically Inspired Robotics,3,1,2.70
+AI.307,Machine Vision,3,2,2.70
+AI.308,Intelligent Control Systems,3,2,2.70
+AI.309,Multi-Robot Systems,3,2,2.70
+AI.310,Robot Localization and Mapping,3,2,2.70
+AI.311,Robotics Planning,3,2,2.70
+AI.312,Social Robotics,3,2,2.70
+AI.401,Evolutionary Robotics,4,1,2.70
+AI.402,Robot Ethics,4,1,2.70
+AI.403,Robot Learning,4,1,2.70
+AI.404,AI Ethics,4,1,2.70
+AI.405,Robot Manipulation,4,1,2.70
+AI.406,Robot Perception,4,1,2.70
+AI.407,Robot Navigation,4,2,2.70
+AI.408,Robot Path Planning,4,2,2.70
+AI.409,Robot Simulation,4,2,2.70
+AI.410,Robot Vision,4,2,2.70
+AI.411,Robot Design,4,2,2.70
+AI.450,Project,4,2,2.70

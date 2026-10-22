@@ -1,0 +1,132 @@
+{
+  "course": "AI.101",
+  "total_seconds": 1817.13,
+  "slides": [
+    {
+      "slide": 1,
+      "title": "Introduction to Artificial Intelligence",
+      "seconds": 69.57,
+      "narration_clips": 1,
+      "silent_placeholder": false
+    },
+    {
+      "slide": 2,
+      "title": "Lecture Roadmap",
+      "seconds": 71.68,
+      "narration_clips": 1,
+      "silent_placeholder": false
+    },
+    {
+      "slide": 3,
+      "title": "What Is Intelligence?",
+      "seconds": 130.93,
+      "narration_clips": 2,
+      "silent_placeholder": false
+    },
+    {
+      "slide": 4,
+      "title": "Four Definitions of AI",
+      "seconds": 93.1,
+      "narration_clips": 1,
+      "silent_placeholder": false
+    },
+    {
+      "slide": 5,
+      "title": "The Rational Agent",
+      "seconds": 93.37,
+      "narration_clips": 1,
+      "silent_placeholder": false
+    },
+    {
+      "slide": 6,
+      "title": "A Brief History of AI",
+      "seconds": 105.79,
+      "narration_clips": 1,
+      "silent_placeholder": false
+    },
+    {
+      "slide": 7,
+      "title": "Seasons of Hope and Winter",
+      "seconds": 98.44,
+      "narration_clips": 1,
+      "silent_placeholder": false
+    },
+    {
+      "slide": 8,
+      "title": "The Family of AI Fields",
+      "seconds": 139.39,
+      "narration_clips": 2,
+      "silent_placeholder": false
+    },
+    {
+      "slide": 9,
+      "title": "Search and Problem Solving",
+      "seconds": 93.42,
+      "narration_clips": 1,
+      "silent_placeholder": false
+    },
+    {
+      "slide": 10,
+      "title": "Knowledge and Logical Reasoning",
+      "seconds": 102.58,
+      "narration_clips": 1,
+      "silent_placeholder": false
+    },
+    {
+      "slide": 11,
+      "title": "Machine Learning in Three Paradigms",
+      "seconds": 101.49,
+      "narration_clips": 1,
+      "silent_placeholder": false
+    },
+    {
+      "slide": 12,
+      "title": "Neural Networks and Deep Learning",
+      "seconds": 92.73,
+      "narration_clips": 1,
+      "silent_placeholder": false
+    },
+    {
+      "slide": 13,
+      "title": "Perception, Decision, and Action",
+      "seconds": 120.53,
+      "narration_clips": 2,
+      "silent_placeholder": false
+    },
+    {
+      "slide": 14,
+      "title": "Language and Generative AI",
+      "seconds": 95.64,
+      "narration_clips": 1,
+      "silent_placeholder": false
+    },
+    {
+      "slide": 15,
+      "title": "Responsible AI and Human Dignity",
+      "seconds": 100.4,
+      "narration_clips": 1,
+      "silent_placeholder": false
+    },
+    {
+      "slide": 16,
+      "title": "Applications Across Industries",
+      "seconds": 101.7,
+      "narration_clips": 1,
+      "silent_placeholder": false
+    },
+    {
+      "slide": 17,
+      "title": "Key Takeaways",
+      "seconds": 102.12,
+      "narration_clips": 1,
+      "silent_placeholder": false
+    },
+    {
+      "slide": 18,
+      "title": "Looking Ahead",
+      "seconds": 104.25,
+      "narration_clips": 2,
+      "silent_placeholder": false
+    }
+  ]
+}
