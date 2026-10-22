@@ -1,0 +1,370 @@
+{
+  "code": "AI.101",
+  "title": "Introduction to Artificial Intelligence",
+  "year": 1,
+  "semester": 1,
+  "credit_hours": 2.7,
+  "author_footer": "TRIUNE BIBLICAL UNIVERSITY GLOBAL EXTENSION, USA",
+  "voice_id": "voice-00",
+  "slides": [
+    {
+      "id": "01",
+      "layout": "cover",
+      "title": "Introduction to Artificial Intelligence",
+      "subtitle": "AI.101  |  Year 1, Semester 1  |  Introductory Lecture",
+      "image": "assets/cover_bg.png",
+      "narration": "Welcome, and thank you for joining this introductory lecture for AI 101, Introduction to Artificial Intelligence. This course is the doorway into the entire Bachelor of Artificial Intelligence and Robotics Engineering. Over the next thirty minutes, we will build a shared foundation. We will ask what intelligence means, examine how the field of artificial intelligence began, and explore the core ideas that power today's systems, from search and logic to machine learning and robotics. Along the way, we will look at the responsibilities that come with building machines that think and act. Artificial intelligence is not only a technical discipline. It is a human endeavor, shaped by mathematics, engineering, psychology, philosophy, and ethics. As a student at Triune Biblical University Global Extension, you are invited to study this field with excellence, curiosity, and a deep commitment to human dignity. Let us begin with the question that lies at the heart of everything we will study."
+    },
+    {
+      "id": "02",
+      "layout": "bullets",
+      "title": "Lecture Roadmap",
+      "bullets": [
+        "What is intelligence?",
+        "Four classic definitions of AI",
+        "The rational agent",
+        "A brief history of AI",
+        "Core approaches: search, logic, learning, perception",
+        "Applications, ethics, and the road ahead"
+      ],
+      "narration": "Let us look at the road ahead. Today's lecture has six movements. First, we will ask what intelligence actually means, and why that question matters for engineers. Second, we will compare four classic definitions of artificial intelligence, which describe the field in terms of thinking and acting, humanly and rationally. Third, we will introduce the rational agent, the central abstraction that unifies nearly every AI system you will study in this programme. Fourth, we will walk through a brief history, from Alan Turing's early questions to the modern wave of large-scale learning. Fifth, we will survey the core technical families of AI, including search, logic, machine learning, neural networks, and perception. Finally, we will consider applications, ethics, and the road ahead into robotics. Each section builds on the one before it, so keep your notes handy. You do not need to master every detail today. What matters most is that you leave with a clear map of the territory, and with the confidence to explore it. Let us start with intelligence itself."
+    },
+    {
+      "id": "03",
+      "layout": "bullets",
+      "title": "What Is Intelligence?",
+      "bullets": [
+        "Intelligence: the capacity to learn, reason, plan, perceive, and adapt",
+        "Human intelligence is general, flexible, and grounded in experience",
+        "Machines can match or exceed humans on narrow tasks",
+        "General machine intelligence remains an open research frontier"
+      ],
+      "image": "assets/robot_arm.png",
+      "narration": "Intelligence is one of the oldest and most debated words in human language. In everyday speech, we associate it with learning, reasoning, planning, understanding language, perceiving the world, and adapting when circumstances change. Human intelligence is remarkably general. A child who learns to stack blocks can later reason about bridges, music, and friendship, all with the same flexible mind. Machines, by contrast, have historically been narrow. A chess program may defeat any human grandmaster, yet be unable to pour a cup of tea. This distinction between narrow and general intelligence is one of the most important ideas in this course. Today's systems are impressive at specific tasks, such as recognizing faces, translating languages, or helping to read medical images. Building a system that matches the broad adaptability of a human being remains an open scientific frontier. When we say artificial intelligence, we therefore mean computational systems that perform tasks which, when done by people, require intelligence. This working definition is practical. It lets engineers measure progress, compare designs, and identify where machines still fall short. As you look at the robotic arm on this slide, notice how much it does well, and how much it still cannot do without careful human design. That contrast is the story of this entire field.",
+      "narration_extra": [
+        "Let me offer a simple thought experiment. Think about a task you perform each morning without effort, such as recognizing a friend's voice in a crowded room. Now imagine writing a program that does exactly that, reliably, in every lighting condition and accent. You will quickly discover that the task is easy for you precisely because much of your intelligence operates beneath conscious thought, shaped by years of experience. This observation explains why researchers study intelligence both in living minds and in engineered machines. Each perspective illuminates the other, and each keeps the other honest."
+      ]
+    },
+    {
+      "id": "04",
+      "layout": "cards",
+      "title": "Four Definitions of AI",
+      "cards": [
+        {
+          "heading": "Thinking Humanly",
+          "text": "Systems that model human cognition, studied through cognitive science and brain research."
+        },
+        {
+          "heading": "Acting Humanly",
+          "text": "Systems that behave so much like people that an observer cannot reliably tell the difference."
+        },
+        {
+          "heading": "Thinking Rationally",
+          "text": "Systems that reason correctly from premises using logic and formal inference."
+        },
+        {
+          "heading": "Acting Rationally",
+          "text": "Systems that choose the actions most likely to achieve their goals, given what they perceive."
+        }
+      ],
+      "narration": "Researchers have long described artificial intelligence in four complementary ways. The first approach, thinking humanly, seeks to model the processes of human cognition. Cognitive scientists build theories of memory, attention, and problem solving, and then test them in computer programs. The second approach, acting humanly, asks whether a machine can behave so much like a person that an observer cannot reliably tell the difference. Alan Turing proposed this imitation game in 1950 as a practical test of machine intelligence. The third approach, thinking rationally, grounds intelligence in logic. Here, the goal is to derive correct conclusions from known facts using formal methods, much as a mathematician proves a theorem. The fourth approach, acting rationally, has become the dominant view in modern engineering. A rational agent selects actions expected to achieve the best outcome, given what it has perceived and what it knows. This course adopts the acting rationally perspective, because it connects naturally to robotics, control, and learning. Yet the other three approaches still matter. Human cognition inspires algorithms, logic supports verification, and the imitation test reminds us that interaction with people is central. Keep these four lenses in mind. Each will reappear as we study specific techniques throughout your programme."
+    },
+    {
+      "id": "05",
+      "layout": "diagram",
+      "title": "The Rational Agent",
+      "diagram": {
+        "type": "cycle",
+        "nodes": [
+          "Environment",
+          "Sensors: Percepts",
+          "Agent Program",
+          "Actuators: Actions"
+        ]
+      },
+      "caption": "An agent perceives, decides, acts, and changes its environment.",
+      "narration": "The rational agent is the central abstraction of modern artificial intelligence. An agent is anything that perceives its environment through sensors and acts upon that environment through actuators. Consider a thermostat, a self-driving car, a chess engine, or a language model answering a question. Each receives inputs, processes them, and produces outputs that change the world in some way. The diagram shows the cycle. The environment generates percepts, which are the signals an agent receives at a given moment. The agent program maps the history of percepts to an action. The actuators carry out that action, which changes the environment, and the cycle continues. A rational agent chooses actions that maximize its expected performance measure. Notice the careful wording. Rationality does not mean perfection. It means making the best decision possible with the information available, given the goals and constraints. This distinction is crucial for robotics. A robot never has complete information about its surroundings. Sensors are noisy, actuators are imprecise, and the world changes continuously. Good engineering therefore designs agents that handle uncertainty gracefully. Throughout this programme, you will design such agents, measure their performance, and improve them. The agent viewpoint will reappear in control systems, planning, reinforcement learning, and autonomous vehicles."
+    },
+    {
+      "id": "06",
+      "layout": "diagram",
+      "title": "A Brief History of AI",
+      "diagram": {
+        "type": "timeline",
+        "nodes": [
+          "1950\nTuring's imitation game",
+          "1956\nDartmouth names AI",
+          "1966\nELIZA chatbot",
+          "1980s\nExpert systems",
+          "1997\nDeep Blue beats Kasparov",
+          "2012\nAlexNet and deep learning",
+          "2017\nTransformer architecture",
+          "2022\nChatGPT released"
+        ]
+      },
+      "caption": "Each milestone combined new ideas, more data, and greater computing power.",
+      "narration": "The history of artificial intelligence is a story of bold ideas, disappointing setbacks, and remarkable breakthroughs. In 1950, Alan Turing published an article titled Computing Machinery and Intelligence, in which he asked whether machines can think, and proposed the imitation game as a way to address the question. In 1956, John McCarthy, Marvin Minsky, Claude Shannon, and others gathered at Dartmouth College for a summer workshop. It was there that the name artificial intelligence was adopted. Early programs solved algebra word problems, played checkers, and proved theorems in logic. In 1966, Joseph Weizenbaum created ELIZA, a conversational program that imitated a psychotherapist using simple pattern matching. People were surprised by how emotionally engaged they became. During the 1980s, expert systems captured the knowledge of human specialists in rule form, and businesses invested heavily. In 1997, IBM's Deep Blue defeated world chess champion Garry Kasparov in a six game match. In 2012, a deep convolutional network called AlexNet dramatically reduced error rates on the ImageNet image recognition challenge, igniting the deep learning era. In 2017, researchers at Google introduced the Transformer architecture, which now underlies most large language models. In 2022, ChatGPT brought generative AI to millions of users worldwide. Each milestone reflects new ideas, more data, and greater computing power working together."
+    },
+    {
+      "id": "07",
+      "layout": "bullets",
+      "title": "Seasons of Hope and Winter",
+      "bullets": [
+        "Early optimism predicted human-level AI within a generation",
+        "The first AI winter, in the mid-1970s, followed limited results and reduced funding",
+        "The 1980s expert system boom collapsed under cost and brittleness",
+        "A second winter arrived in the late 1980s and early 1990s",
+        "Lesson: avoid overpromising, and test systems in the real world",
+        "Renewed progress came from big data, faster hardware, and better algorithms"
+      ],
+      "narration": "Every story of artificial intelligence includes seasons of enthusiasm and seasons of doubt. Early researchers were remarkably optimistic. Some predicted that machines would match human intelligence within a generation. Those predictions outran the technology. In the mid-1970s, reports on the limits of machine translation and general problem solving led to reduced funding, a period often called the first AI winter. In the 1980s, expert systems revived interest. Companies deployed rule-based systems for configuration, diagnosis, and finance, and investment flowed again. But these systems were expensive to build and maintain, and they struggled when situations fell outside their written rules. By the late 1980s, the market for specialized AI hardware collapsed, and a second winter followed in the early 1990s. What lessons should we draw from these cycles? First, overpromising damages trust, not only for researchers but for the whole field. Second, claims must be tested against real-world performance, using rigorous benchmarks. Third, progress often depends on combining three ingredients: better algorithms, abundant data, and greater computing power. Today's momentum rests on all three. As future engineers, you will be expected to communicate both the potential and the limits of your systems honestly. That habit is part of professional integrity, and it will serve you throughout your career."
+    },
+    {
+      "id": "08",
+      "layout": "diagram",
+      "title": "The Family of AI Fields",
+      "diagram": {
+        "type": "tree",
+        "root": {
+          "label": "Artificial Intelligence",
+          "children": [
+            {
+              "label": "Machine Learning",
+              "children": [
+                {
+                  "label": "Deep Learning",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "Robotics",
+              "children": []
+            },
+            {
+              "label": "Computer Vision",
+              "children": []
+            },
+            {
+              "label": "Natural Language Processing",
+              "children": []
+            },
+            {
+              "label": "Search and Planning",
+              "children": []
+            },
+            {
+              "label": "Knowledge Representation",
+              "children": []
+            }
+          ]
+        }
+      },
+      "caption": "AI is a family of overlapping fields, not a single technology.",
+      "narration": "Artificial intelligence is best understood as a family of related fields rather than a single technology. Look at the tree on your screen. At the top is Artificial Intelligence, the broad goal of building systems that perform intelligent behavior. Beneath it are several major branches. Machine Learning is the branch in which systems improve from data rather than from explicitly programmed rules. Within machine learning, Deep Learning uses multi-layer neural networks to learn rich representations of images, sound, and text. Robotics brings intelligence into physical bodies, combining perception, planning, and control. Computer Vision enables machines to interpret images and video. Natural Language Processing allows computers to analyze and generate human language. Search and Planning provides methods for finding sequences of actions that achieve goals. Knowledge Representation studies how facts, relationships, and rules can be stored and reasoned about. These branches overlap heavily. A self-driving car, for example, uses computer vision, machine learning, planning, and robotics at the same time. A medical assistant may combine language processing with knowledge graphs. Throughout this programme, you will meet every branch, and you will learn how they fit together. Think of these fields not as separate silos, but as complementary tools in a single engineering toolkit, selected according to the problem you are trying to solve.",
+      "narration_extra": [
+        "Notice also what these fields share. Almost every branch depends on the same foundations. Linear algebra describes data and transformations, probability describes uncertainty, optimization describes how to improve a design, and logic describes how conclusions follow from assumptions. A student who grasps these four languages will find it far easier to move between branches. As you progress, you will return to them repeatedly, so please treat them as essential vocabulary rather than optional background reading. Mathematics is the common language of intelligent machines."
+      ]
+    },
+    {
+      "id": "09",
+      "layout": "split",
+      "title": "Search and Problem Solving",
+      "bullets": [
+        "State space: every configuration the agent can reach",
+        "Actions move the agent from one state to a neighboring state",
+        "Goal test decides when the problem is solved",
+        "Path cost measures the effort of each step",
+        "Heuristics such as A* search guide exploration toward goals"
+      ],
+      "diagram": {
+        "type": "flow",
+        "nodes": [
+          "Initial state",
+          "Expand successors",
+          "Goal test",
+          "Solution path"
+        ],
+        "loop": [
+          2,
+          1
+        ],
+        "loop_label": "Not the goal: add successors to the frontier"
+      },
+      "narration": "Many AI problems can be described as search. Imagine a robot that must move from one room to another while avoiding obstacles. We represent the situation as a state space. Each state describes where the robot is, and each action moves it to a neighboring state. A problem has an initial state, a set of possible actions, a goal test that tells us when we have succeeded, and a path cost that measures the effort of each step. The diagram shows the basic cycle of search. We begin in the initial state. We expand the current state to generate its successors. We test whether any successor satisfies the goal. If not, we add the successors to a frontier, choose the next node to explore, and repeat until a solution path is found. The strategy used to choose the next node defines the search algorithm. Uninformed methods, such as breadth-first and depth-first search, explore without knowing how close they are to the goal. Informed methods, such as A star search, use a heuristic estimate to guide exploration more efficiently. A good heuristic never overestimates the true cost, which guarantees optimal solutions under suitable conditions. Search is also the foundation of path planning in robotics, which you will study later in this programme. Mastering the idea of a state, an action, and a goal is therefore an essential first step."
+    },
+    {
+      "id": "10",
+      "layout": "split",
+      "title": "Knowledge and Logical Reasoning",
+      "bullets": [
+        "Knowledge bases store facts and rules about a domain",
+        "Propositional logic handles true or false statements",
+        "First-order logic adds objects, relations, and quantifiers",
+        "Inference engines derive new conclusions from known facts",
+        "Expert systems were powerful but brittle outside their rules",
+        "Knowledge graphs revive structured reasoning at web scale"
+      ],
+      "diagram": {
+        "type": "flow",
+        "nodes": [
+          "Facts",
+          "Rules",
+          "Inference engine",
+          "New conclusion"
+        ]
+      },
+      "narration": "Search tells a system how to reach a goal. Knowledge and logic tell it what is true about the world. A knowledge base is a structured collection of facts and rules about a domain. For example, a medical system might store that a patient has a fever, that fever and cough can indicate infection, and that certain antibiotics treat certain bacteria. Propositional logic represents such statements as simple true or false propositions, combined using connectives such as and, or, and not. First-order logic goes further. It introduces objects, relations, and quantifiers, so we can state that for all patients, if a symptom is present, then a condition may be considered. An inference engine applies rules to known facts to derive new conclusions. This process is called reasoning, and it provides transparency. We can trace exactly why a conclusion was reached. During the 1980s, expert systems used these ideas to achieve impressive results in narrow domains. Yet their knowledge had to be written by hand, and they often failed when confronted with exceptions or uncertainty. Today, knowledge graphs revive these ideas at web scale. They connect entities such as people, places, and products through labeled relationships, and they power search engines, recommendations, and question answering. Modern AI increasingly combines learned pattern recognition with explicit structured knowledge. You will see this combination throughout your studies."
+    },
+    {
+      "id": "11",
+      "layout": "cards",
+      "title": "Machine Learning in Three Paradigms",
+      "cards": [
+        {
+          "heading": "Supervised Learning",
+          "text": "Learns a mapping from labeled examples, such as spam filtering or disease classification."
+        },
+        {
+          "heading": "Unsupervised Learning",
+          "text": "Discovers structure in unlabeled data, such as customer segments or anomaly detection."
+        },
+        {
+          "heading": "Reinforcement Learning",
+          "text": "Learns from trial, error, and reward, such as game playing or robot locomotion."
+        }
+      ],
+      "narration": "Machine learning is the most influential branch of modern artificial intelligence, and it is organized around three broad paradigms. The first, supervised learning, uses examples that come with correct answers. Suppose we want a system to recognize spam email. We provide thousands of messages labeled spam or not spam. The algorithm learns a mapping from inputs to outputs, and we evaluate it on new messages it has never seen. The second paradigm, unsupervised learning, works without labels. Here, the goal is to discover structure. A retailer might group customers by purchasing behavior, or an engineer might detect unusual vibrations in a machine. The third paradigm, reinforcement learning, learns from interaction. An agent takes actions, receives rewards or penalties, and gradually discovers strategies that maximize long-term reward. This approach has produced superhuman game players and is widely studied for robotic control. These paradigms differ in the feedback they receive. Labels are expensive to obtain, so supervised learning depends on careful data collection. Unsupervised learning is exploratory and sometimes harder to evaluate. Reinforcement learning requires safe exploration, because mistakes in the physical world can be costly. Across all three, the central questions are the same. What data do we use, how do we measure performance, and how well does the learned model generalize to the real world?"
+    },
+    {
+      "id": "12",
+      "layout": "split",
+      "title": "Neural Networks and Deep Learning",
+      "bullets": [
+        "Neurons compute weighted sums followed by a nonlinear activation",
+        "Layers turn raw inputs into increasingly abstract features",
+        "Training adjusts weights to reduce prediction error",
+        "Backpropagation computes gradients efficiently, layer by layer",
+        "Deep networks scale to images, speech, and language"
+      ],
+      "diagram": {
+        "type": "network",
+        "layers": [
+          3,
+          5,
+          5,
+          2
+        ],
+        "labels": [
+          "Input",
+          "Hidden",
+          "Hidden",
+          "Output"
+        ]
+      },
+      "narration": "Neural networks are computational models inspired loosely by the structure of biological brains. A neuron receives several numerical inputs, multiplies each by a learned weight, adds a bias term, and passes the result through a nonlinear activation function. Although each neuron is simple, networks of many neurons can represent extraordinarily complex functions. The diagram illustrates a small network. The input layer receives raw features, such as pixel intensities or sensor readings. Hidden layers transform these inputs into increasingly abstract representations. Early layers might detect edges, and deeper layers might detect shapes or objects. The output layer produces the prediction, such as a class label or a numerical estimate. Training adjusts the weights to reduce error on a set of examples. The key algorithm is backpropagation, which computes how much each weight contributed to the error by propagating gradients backward through the network. Gradient descent then nudges the weights in the direction that reduces the loss. Deep learning refers to networks with many hidden layers, which became practical thanks to large datasets and graphics processing units. You do not need to memorize every equation today. What matters is the principle. A network learns representations from data by repeatedly comparing its predictions with reality and correcting itself."
+    },
+    {
+      "id": "13",
+      "layout": "split",
+      "title": "Perception, Decision, and Action",
+      "bullets": [
+        "Sensors include cameras, lidar, microphones, and tactile sensors",
+        "Perception converts raw signals into objects, positions, and meanings",
+        "Planning selects a sequence of actions toward a goal",
+        "Feedback closes the loop and supports learning",
+        "Latency and uncertainty shape every design decision"
+      ],
+      "diagram": {
+        "type": "cycle",
+        "nodes": [
+          "Sense",
+          "Perceive",
+          "Plan",
+          "Act",
+          "Learn"
+        ]
+      },
+      "narration": "Robots and other embodied agents operate in a continuous cycle of sensing, deciding, and acting. This loop is central to robotics, and it appears throughout this programme. It begins with sensors. Cameras capture light, lidar measures distance with laser pulses, microphones record sound, and tactile sensors detect contact and pressure. Raw sensor data is noisy and incomplete, so the next stage is perception. Perception converts signals into useful information, such as the location of an object, the boundary of a road, or the identity of a person. Then reasoning and planning select actions that move the agent toward its goal. A planner might compute a collision-free path, while a controller determines the motor commands needed to follow it. Actuators execute those commands, and the environment responds. Feedback from this response closes the loop. Sometimes the feedback reveals errors that the system can learn from, and that is where adaptive methods enter the picture. Engineers must also respect timing constraints. A self-balancing robot may need to update its control loop hundreds of times per second, and a delayed decision can cause a fall. Understanding this cycle will help you see how perception, planning, control, and learning fit together into one working robot.",
+      "narration_extra": [
+        "Consider a warehouse robot carrying a package across a busy floor. Its camera identifies shelves and people. Its planner chooses a route that avoids collisions and respects speed limits. Its controller turns that route into wheel velocities, adjusted many times per second as the floor surface changes. If a person steps into the path, the robot must sense the change and respond immediately. Every stage of the loop must succeed together, which is why robotics engineering is an integrated discipline, not a collection of isolated tricks."
+      ]
+    },
+    {
+      "id": "14",
+      "layout": "split",
+      "title": "Language and Generative AI",
+      "bullets": [
+        "Language models estimate probabilities over sequences of tokens",
+        "Attention lets each token weigh the context around it",
+        "Pre-training on vast text corpora builds broad capabilities",
+        "Fine-tuning and human feedback shape helpful behavior",
+        "Fluency is not the same as truth, so verification remains essential"
+      ],
+      "diagram": {
+        "type": "flow",
+        "nodes": [
+          "Text prompt",
+          "Tokenization",
+          "Transformer model",
+          "Next-token prediction",
+          "Generated response"
+        ]
+      },
+      "narration": "Generative AI has transformed public attention to artificial intelligence, so let us examine how a modern language model works. When you type a prompt, the system first breaks the text into tokens, which are small units such as words, parts of words, or punctuation marks. Each token is converted into a numerical vector called an embedding. These vectors pass through a Transformer model, a neural architecture built around a mechanism called attention. Attention allows each token to weigh the relevance of other tokens in the sequence, so that the meaning of a word can depend on its context. The model is trained by predicting the next token in enormous collections of text. Repeated billions of times, this simple objective yields a surprising range of capabilities, including summarizing, translating, and reasoning about code. After pre-training, developers often fine-tune the model and apply human feedback to make its behavior more helpful and safe. Finally, the model generates a response one token at a time, sampling from probability distributions. Here is an essential caution. Fluent language is not the same as verified truth. Language models can produce confident errors, sometimes called hallucinations. Responsible users verify important claims, check sources, and maintain human judgment. This habit of verification will serve you well in every course."
+    },
+    {
+      "id": "15",
+      "layout": "bullets",
+      "title": "Responsible AI and Human Dignity",
+      "bullets": [
+        "Fairness: test for disparate impact across groups",
+        "Transparency: explain high-stakes decisions to those affected",
+        "Accountability: name the humans responsible for outcomes",
+        "Privacy: collect, secure, and use personal data with care",
+        "Safety: design for failure and keep meaningful human oversight",
+        "Dignity: people are never mere data points to be optimized"
+      ],
+      "narration": "As artificial intelligence grows more powerful, questions of responsibility become more urgent. Engineers cannot treat their systems as morally neutral. Every dataset reflects choices, every objective function encodes priorities, and every deployment affects real people. Several principles guide responsible practice. Fairness requires that we test systems for disparate impact across different groups, and that we address harmful patterns inherited from historical data. Transparency means that decisions with high stakes should be explainable to those affected, and that engineers document how systems were built and evaluated. Accountability requires clear human responsibility for outcomes, so that machines never become a convenient excuse for harm. Privacy demands that personal data be collected sparingly, secured carefully, and used only for legitimate purposes. Safety calls for designing systems that fail gracefully and that keep meaningful human oversight, especially in robotics and healthcare. At the foundation of these principles lies a conviction about human dignity. Human beings are made in the image of God, and they are never merely data points or objects to be optimized. At Triune Biblical University Global Extension, we encourage students to view technology as a form of stewardship. We are called to use our gifts to serve others, to protect the vulnerable, and to honor the truth. Responsible engineering is, at its best, an expression of love for our neighbor."
+    },
+    {
+      "id": "16",
+      "layout": "bullets",
+      "title": "Applications Across Industries",
+      "bullets": [
+        "Healthcare: decision support for imaging and diagnosis",
+        "Agriculture: crop monitoring, yield prediction, precision spraying",
+        "Logistics: routing, warehouse robots, and demand forecasting",
+        "Manufacturing: visual inspection and predictive maintenance",
+        "Education: adaptive tutoring and accessible learning tools",
+        "Environment: climate modeling, wildlife monitoring, disaster warning"
+      ],
+      "image": "assets/neural_network.png",
+      "narration": "Artificial intelligence is no longer confined to research laboratories. It now supports decisions and operations across nearly every sector of society. In healthcare, AI systems assist clinicians by highlighting suspicious regions in medical images, prioritizing urgent cases, and summarizing patient records. Importantly, these tools support professionals rather than replace their judgment. In agriculture, drones and ground robots use computer vision to monitor crop health, estimate yields, and apply fertilizer or pesticide precisely where it is needed, reducing waste and environmental impact. In logistics, machine learning forecasts demand, optimizes delivery routes, and coordinates warehouse robots that move goods efficiently. Manufacturing plants use vision-based inspection to detect defects at high speed, and predictive maintenance models identify equipment likely to fail before it breaks down. In education, adaptive tutoring systems adjust explanations to each learner's pace, and accessibility tools help students with disabilities read, write, and communicate. Environmental applications include climate modeling, wildlife monitoring with camera traps, and early warning systems for floods and wildfires. As you study these examples, ask three questions. What problem is being solved? What data does the system require? Who benefits, and who might be harmed? Those questions will guide the engineering decisions you make throughout your career."
+    },
+    {
+      "id": "17",
+      "layout": "bullets",
+      "title": "Key Takeaways",
+      "bullets": [
+        "AI is the engineering of systems that perceive, reason, learn, and act",
+        "The rational agent provides a unifying model across the field",
+        "History teaches humility: progress is real but uneven",
+        "Core methods include search, logic, machine learning, and neural networks",
+        "Responsible design is part of professional excellence"
+      ],
+      "narration": "Let us pause and consolidate what we have learned today. First, artificial intelligence is the engineering of systems that perceive, reason, learn, and act. It is best understood as a family of related fields, including machine learning, robotics, computer vision, and language processing. Second, the rational agent provides a unifying model. Whether we study a thermostat or a humanoid robot, we can ask what the agent perceives, how it decides, and how its actions change the environment. Third, history teaches humility. The field has experienced periods of excitement and disappointment, and the lesson is to evaluate claims carefully and build systems that work reliably in the real world. Fourth, we introduced core methods. Search provides a framework for planning. Logic supports structured reasoning. Machine learning, especially neural networks, enables systems to learn from data. Reinforcement learning allows agents to improve through interaction. Fifth, responsible design is part of professional excellence. Fairness, transparency, accountability, privacy, and safety must be built into systems from the beginning, and human dignity must guide every decision. If you remember only one idea from this lecture, remember this. Intelligence in a machine is valuable only when it serves people wisely and justly. Your remaining courses will give you the tools to build such systems, and this course gives you the vision to use them well."
+    },
+    {
+      "id": "18",
+      "layout": "cover",
+      "title": "Looking Ahead",
+      "subtitle": "Next lecture: AI.102 Robotics Fundamentals",
+      "image": "assets/robot_arm.png",
+      "narration": "We have reached the end of our introductory lecture. You have now seen the landscape of artificial intelligence, from its philosophical roots and historical milestones to the core methods that power today's systems. You have met the rational agent, explored search, logic, and learning, and considered the responsibilities that accompany this technology. Your next step is AI.102, Robotics Fundamentals. In that course, we will move from software into the physical world, studying sensors, actuators, the basics of motion, and the principles that allow machines to act with purpose. I encourage you to review the notes from this lecture, to revisit any slide that felt unfamiliar, and to come prepared with questions. Learning this field is a journey of patience and persistence. Mistakes are part of the process, and every problem you solve strengthens your capacity to serve others. Thank you for your attention, and may your study this semester be marked by diligence, wisdom, and joy. This lecture was presented by Triune Biblical University Global Extension, USA. I look forward to meeting you in the next session.",
+      "narration_extra": [
+        "Before you leave this session, take three concrete steps. First, write down the single idea from today that surprised you most. Second, identify one term you would like to understand better, such as attention, heuristic, or reinforcement, and look it up in your course materials. Third, consider how the responsibilities we discussed might apply to a community you care about. Learning becomes lasting when it moves from the lecture hall into the life you lead."
+      ]
+    }
+  ]
+}
