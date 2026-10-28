@@ -1,0 +1,361 @@
+{
+  "code": "AI.102",
+  "title": "Robotics Fundamentals",
+  "year": 1,
+  "semester": 1,
+  "credit_hours": 2.7,
+  "author_footer": "TRIUNE BIBLICAL UNIVERSITY GLOBAL EXTENSION, USA",
+  "voice_id": "voice-00",
+  "slides": [
+    {
+      "id": "01",
+      "layout": "cover",
+      "title": "Robotics Fundamentals",
+      "subtitle": "AI.102  |  Year 1, Semester 1  |  Introductory Lecture",
+      "image": "assets/cover_bg.png",
+      "narration": "Welcome to AI 102, Robotics Fundamentals. This course is the second step in your journey through the Bachelor of Artificial Intelligence and Robotics Engineering. In the previous lecture, we explored the broad landscape of artificial intelligence, from search and logic to learning and perception. Today, we move from software into the physical world. A robot is an artificial intelligence system that has a body. It senses its surroundings, reasons about what it senses, and acts in ways that change the environment. Over the next thirty minutes, we will examine the building blocks of every robot, the mathematics that describes motion, and the control principles that keep machines stable and precise. We will also consider the responsibility that comes with building machines that share our workspaces and our homes. As a student at Triune Biblical University Global Extension, you are invited to approach this discipline with rigor, humility, and a deep respect for the people your work will serve. Let us begin by asking what a robot really is."
+    },
+    {
+      "id": "02",
+      "layout": "bullets",
+      "title": "Lecture Roadmap",
+      "bullets": [
+        "What is a robot, and where did the word come from?",
+        "The four subsystems: structure, actuation, sensing, computation",
+        "Families of robots: arms, mobile, aerial, humanoid, social",
+        "Coordinate frames, kinematics, and motion",
+        "Sensors, actuators, and feedback control",
+        "Safety, applications, and professional responsibility"
+      ],
+      "narration": "Here is the road ahead. We will begin by defining what a robot is and tracing the origins of the word, which comes from a Czech play. Next, we will examine the four subsystems that make up nearly every robot: structure, actuation, sensing, and computation. We will then survey the main families of robots, from industrial manipulators to mobile platforms and humanoids. After that, we will study the mathematics of position and orientation, the core language of robotics. We will explore forward and inverse kinematics, which connect joint angles to the location of a robot's hand. Then we will look at sensors, actuators, and feedback control, the mechanisms that allow a robot to correct its own errors. Finally, we will discuss safety, applications, and the responsibilities of engineers who build machines that work alongside people. Do not worry if some of this sounds demanding. Each idea will return in later courses, and today's goal is to give you a clear map and a working vocabulary."
+    },
+    {
+      "id": "03",
+      "layout": "bullets",
+      "title": "What Is a Robot?",
+      "bullets": [
+        "A physically embodied system that senses, computes, and acts",
+        "The word robot comes from a 1920 Czech play, R.U.R.",
+        "Unimate, installed in 1961, was an early industrial robot",
+        "Sensing, computation, and action must work together",
+        "A calculator computes but cannot act on the physical world"
+      ],
+      "image": "assets/robot_arm.png",
+      "narration": "The word robot entered our language in 1920, when the Czech writer Karel Capek produced a play called R.U.R., short for Rossum's Universal Robots. The Czech word robota means forced labor, and the play imagined artificial workers serving human masters. The idea was dramatic, but the engineering reality took decades to mature. In 1961, a machine called Unimate was installed on a General Motors assembly line, performing die casting tasks that were dangerous for people. Today, robots assemble vehicles, package goods, explore other planets, and assist surgeons. Yet a useful working definition remains precise. A robot is a physically embodied system that senses its environment, processes information to make decisions, and acts on the world through actuators. Notice the three ingredients: sensing, computation, and action. Remove any one of them and you no longer have a robot. A thermostat senses and acts, but it has little computation and no mobility. A calculator computes, but it neither senses nor acts on the physical world. Robotics is the discipline that integrates all three into a coherent, reliable system. As you look at the robotic arm on this slide, identify those three ingredients. Where is the sensing? Where is the computation? Where is the action?"
+    },
+    {
+      "id": "04",
+      "layout": "cards",
+      "title": "The Four Subsystems of a Robot",
+      "cards": [
+        {
+          "heading": "Structure",
+          "text": "Links, joints, housings, and frames that set reach, stiffness, weight, and motion."
+        },
+        {
+          "heading": "Actuation",
+          "text": "Electric motors, hydraulics, and pneumatics that convert energy into motion."
+        },
+        {
+          "heading": "Sensing",
+          "text": "Encoders, inertial units, cameras, lidar, and force sensors that observe the robot and its world."
+        },
+        {
+          "heading": "Computation and Control",
+          "text": "Processors that perceive, plan trajectories, and compute motor commands."
+        }
+      ],
+      "narration": "Nearly every robot, from a warehouse arm to a planetary rover, can be understood through four subsystems. The first is structure, the mechanical skeleton made of links, joints, housings, and frames. Structure determines the robot's reach, stiffness, weight, and the kinds of motion it can perform. The second is actuation, the muscles of the machine. Actuators convert energy into motion. Electric motors dominate modern robotics because they are precise and controllable, while hydraulic systems deliver great force and pneumatic systems provide fast, compliant motion. The third subsystem is sensing. Encoders report joint angles, inertial measurement units report acceleration and rotation, cameras and lidar observe the surroundings, and force sensors detect contact. Sensors are the robot's window onto the world. The fourth subsystem is computation and control. Processors run perception algorithms, planners select trajectories, and controllers compute the motor commands needed to follow them. These four subsystems must work as one. A powerful motor with poor sensing will overshoot. An accurate sensor feeding a slow processor will react too late. Good robotics engineering is the art of balancing these subsystems so that the machine behaves predictably in the real world. Keep this four-part framework in mind, because the rest of today's lecture elaborates on each piece."
+    },
+    {
+      "id": "05",
+      "layout": "diagram",
+      "title": "The Robot Control Loop",
+      "diagram": {
+        "type": "cycle",
+        "nodes": [
+          "Sense",
+          "Estimate state",
+          "Plan motion",
+          "Actuate"
+        ]
+      },
+      "caption": "Sensing, estimation, planning, and action repeat many times per second.",
+      "narration": "Robots operate in a continuous loop. The diagram shows the cycle that governs almost every autonomous machine. First, the robot senses its environment and its own body. Encoders report where each joint is, and cameras or lidar report where obstacles and targets lie. Raw sensor data is noisy, so the second stage estimates the robot's state, meaning its best guess of position, velocity, and orientation given all available measurements. Third, the planner decides what motion should happen next. A planner might compute a path around an obstacle, a trajectory for a gripper to reach a part, or a sequence of steps for a legged robot. Fourth, the actuators execute the motion, and the physical world responds. Then the loop begins again, many times per second. The timing matters enormously. A mobile robot traveling at a meter per second that updates its perception only once per second may drive several meters blindly. A manipulator that processes its control loop too slowly may oscillate or strike an object. Engineers therefore measure the latency of every stage and design the system to meet strict deadlines. Notice also that the loop is never perfect. Sensors drift, motors wear, friction changes, and loads shift. Robust robots maintain a model of their own behavior and continually correct for error. This feedback is what separates a robot from a simple automated machine that repeats the same motion regardless of circumstances.",
+      "narration_extra": [
+        "Consider a delivery robot approaching a doorway. Its camera detects a person stepping forward. Its estimator updates the predicted positions of both the robot and the person. Its planner slows the robot and selects a new path. Its controller reduces the wheel torque. Each stage takes only milliseconds, yet together they produce behavior that appears thoughtful. Understanding this chain, from sensing to action, is the first skill of a roboticist."
+      ]
+    },
+    {
+      "id": "06",
+      "layout": "diagram",
+      "title": "Families of Robots",
+      "diagram": {
+        "type": "tree",
+        "root": {
+          "label": "Robots",
+          "children": [
+            {
+              "label": "Industrial Manipulators",
+              "children": [
+                {
+                  "label": "Welding and assembly arms",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "Mobile Robots",
+              "children": [
+                {
+                  "label": "Wheeled platforms",
+                  "children": []
+                },
+                {
+                  "label": "Legged robots",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "Aerial Robots",
+              "children": []
+            },
+            {
+              "label": "Humanoids",
+              "children": []
+            },
+            {
+              "label": "Service and Social Robots",
+              "children": []
+            }
+          ]
+        }
+      },
+      "caption": "Families overlap: a warehouse robot may combine a mobile base with an arm.",
+      "narration": "Robots come in many forms, and organizing them into families helps us choose the right design for each task. Look at the tree on your screen. Industrial manipulators are robotic arms fixed to a factory floor. They weld, paint, assemble, and move heavy parts with great repeatability. Their challenge is precision and speed in a structured environment. Mobile robots move through space. Wheeled platforms carry goods in warehouses and vacuum floors in homes, while legged robots traverse rough terrain that wheels cannot handle. Aerial robots, commonly called drones, fly through the air and inspect infrastructure, map farmland, and deliver packages. Humanoid robots attempt to resemble the human body, which helps them operate in environments built for people, such as stairs and tools. Service and social robots assist in hospitals, hotels, and classrooms, where interaction with humans is central. Each family faces different engineering trade-offs. A manipulator needs rigid, precise joints. A mobile robot needs energy efficiency and reliable navigation. A social robot needs safe, understandable behavior around people. Notice that these categories overlap. A warehouse robot may combine a mobile base with a manipulator arm. A surgical system may combine a fixed arm with advanced sensing and human supervision. As you progress through this programme, you will specialize in some families more than others, but you should understand the principles that cut across all of them."
+    },
+    {
+      "id": "07",
+      "layout": "bullets",
+      "title": "Joints and Degrees of Freedom",
+      "bullets": [
+        "A free rigid body in space has six degrees of freedom",
+        "Three are position: x, y, and z along the axes",
+        "Three are orientation: roll, pitch, and yaw",
+        "Revolute joints rotate; prismatic joints slide",
+        "Redundant arms can avoid obstacles while holding the tool still",
+        "The workspace is the set of points the tool can reach"
+      ],
+      "narration": "A key question in robot design is how many ways a machine can move independently. Engineers call these independent motions degrees of freedom. A rigid object floating in three-dimensional space has six degrees of freedom: three for position along the x, y, and z axes, and three for orientation, usually described as roll, pitch, and yaw. A robot must control enough degrees of freedom to reach the positions and orientations its task requires. Robot joints provide these degrees of freedom. A revolute joint rotates around an axis, like the elbow of a human arm. A prismatic joint slides along an axis, like a telescoping rail. Each joint typically contributes one degree of freedom. A six-joint industrial arm can, in principle, place its tool at any position and orientation within its workspace, provided no joint limit or singularity interferes. When a robot has more joints than the task strictly requires, it is called redundant. Redundancy is valuable. A redundant arm can avoid obstacles, keep its elbow away from people, or maintain a posture that reduces strain on its motors, all while holding the tool at the same position. The workspace of a manipulator is the set of points its tool can reach. Its shape depends on link lengths, joint limits, and the arrangement of joints. Designers study workspace carefully, because a robot that cannot reach a required location is useless regardless of its intelligence."
+    },
+    {
+      "id": "08",
+      "layout": "diagram",
+      "title": "Milestones in Robotics",
+      "diagram": {
+        "type": "timeline",
+        "nodes": [
+          "1921\nR.U.R. introduces the word robot",
+          "1961\nUnimate on a production line",
+          "1969\nStanford Arm, six electric joints",
+          "1997\nSojourner rolls across Mars",
+          "2002\nRoomba reaches homes",
+          "2007\nROS software framework released"
+        ]
+      },
+      "caption": "Each milestone joined mechanical design, electronics, and software.",
+      "narration": "Robotics has a rich history that blends literature, engineering, and bold experiments. The timeline on your screen highlights several milestones. In 1921, Karel Capek's play R.U.R. introduced the word robot to the world. In 1961, Unimate became the first industrial robot installed on a production line, marking the beginning of robotic manufacturing. In 1969, the Stanford Arm, designed by Victor Scheinman, demonstrated a six-joint electric manipulator controlled by a computer, a design that influenced many later industrial arms. In 1997, the small rover Sojourner rolled across the surface of Mars, showing that autonomous mobility could operate across distances of interplanetary scale. In 2002, the Roomba vacuum cleaner brought mobile robotics into millions of homes, proving that consumer robots could succeed commercially. In 2007, the Robot Operating System, known as ROS, was released, providing a shared software framework that accelerated research across laboratories worldwide. Each milestone reflects a convergence of mechanical design, electronics, and software. Progress often came when researchers combined inexpensive sensors, more powerful processors, and better algorithms. As future roboticists, you will stand on these foundations. Learn the history, respect the engineers who came before you, and remember that each generation of robots began as someone's careful experiment."
+    },
+    {
+      "id": "09",
+      "layout": "split",
+      "title": "Coordinate Frames and Transformations",
+      "bullets": [
+        "Pose combines position and orientation",
+        "Each link carries its own coordinate frame",
+        "Rotation matrices describe orientation",
+        "Homogeneous 4x4 transforms combine rotation and translation",
+        "Chaining transforms links frames across the robot"
+      ],
+      "diagram": {
+        "type": "flow",
+        "nodes": [
+          "Base frame",
+          "Link frames",
+          "Tool frame",
+          "World frame"
+        ]
+      },
+      "narration": "To describe where a robot is and where it needs to go, we need a precise mathematical language. That language begins with coordinate frames. A frame is a reference system, usually with three perpendicular axes, attached to a point in space. The world frame is fixed to the environment. The base frame is attached to the robot's mounting point. Each link of a manipulator carries its own frame, and the tool at the end carries another. A pose describes both the position and orientation of one frame relative to another. Position is a three-dimensional vector. Orientation is captured by a rotation matrix, a three-by-three array whose columns are mutually perpendicular unit vectors. Rotation matrices preserve lengths and angles, which is essential for physical accuracy. To handle translation and rotation together, roboticists use homogeneous transformation matrices, which are four-by-four arrays. They combine a rotation and a translation into a single object that can be multiplied with others. The power of this representation lies in chaining. If you know the transform from the base to link one, and from link one to link two, you can multiply them to obtain the transform from the base to link two. The flow on the slide shows this chain, from the base through the links to the tool, and finally into the world frame. Frame conventions matter. Clear documentation and consistent notation are therefore not optional. They are part of every correct robot model."
+    },
+    {
+      "id": "10",
+      "layout": "split",
+      "title": "Forward Kinematics",
+      "bullets": [
+        "Joint angles fully determine the tool pose",
+        "Forward kinematics multiplies link transforms in sequence",
+        "Denavit-Hartenberg parameters standardize link descriptions",
+        "Each joint contributes one transform to the chain",
+        "For given joint values, the tool pose is unique"
+      ],
+      "diagram": {
+        "type": "flow",
+        "nodes": [
+          "Joint angles q",
+          "Link transforms",
+          "Chained product",
+          "End-effector pose"
+        ]
+      },
+      "narration": "Forward kinematics answers a direct question. Given the joint angles of a robot, where is its hand? For a serial manipulator, the answer comes from multiplying transforms along the chain of links. Each joint contributes a transformation that depends on its current angle, and each link contributes a fixed transformation determined by its geometry. Multiply these matrices in order, and the result is the pose of the end effector relative to the base. A common way to organize this work is the Denavit-Hartenberg convention. It describes each link using four parameters: a link length, a link twist, a link offset, and a joint angle. Using a consistent convention lets engineers build the model systematically and compare results across robots. The mathematics is elegant but also demanding. Each product of matrices is a sequence of trigonometric operations, and small errors in angles or lengths accumulate along the chain. Notice an important property. For a given set of joint values, forward kinematics produces exactly one end-effector pose. There is no ambiguity. This makes forward kinematics a reliable tool for simulation, visualization, and checking designs before a robot is built. Engineers often use forward kinematics to verify that a planned motion does not drive the tool into a table or outside the workspace. In later courses, you will combine forward kinematics with dynamics and sensing to create accurate digital twins of physical machines."
+    },
+    {
+      "id": "11",
+      "layout": "cards",
+      "title": "Inverse Kinematics",
+      "cards": [
+        {
+          "heading": "Analytical Solutions",
+          "text": "Closed-form equations give exact joint angles quickly for arms with special geometry."
+        },
+        {
+          "heading": "Numerical Methods",
+          "text": "Iterative solvers use the Jacobian to move joints toward a target pose, step by step."
+        },
+        {
+          "heading": "Redundancy and Null Space",
+          "text": "Extra joints allow secondary goals, such as avoiding obstacles, while the tool stays on target."
+        }
+      ],
+      "narration": "We now reverse the question. Inverse kinematics asks which joint angles produce a desired tool pose. This is the problem a robot must solve whenever a task is specified in terms of where the tool should be, such as a grasp point on a part or a welding seam on a car body. Inverse kinematics is harder than forward kinematics for several reasons. A desired pose may have no solution if it lies outside the workspace. It may have several solutions, such as elbow-up and elbow-down configurations. It may pass near a singularity, where the robot loses the ability to move in some direction. Engineers approach inverse kinematics in three broad ways. The first is analytical. For arms with special geometry, closed-form equations give exact solutions quickly and reliably, which is valuable for real-time control. The second is numerical. When no closed form exists, an iterative solver uses the Jacobian matrix, which relates small changes in joint angles to small changes in tool pose. Each iteration nudges the joints toward the target until the error is small. The third approach exploits redundancy. A manipulator with more joints than the task requires has a null space of joint motions that leave the tool unchanged. A controller can use that null space to pursue secondary goals, such as avoiding obstacles, keeping joints away from their limits, or moving a human collaborator's hand safely out of the way. "
+    },
+    {
+      "id": "12",
+      "layout": "split",
+      "title": "Sensors and State Estimation",
+      "bullets": [
+        "Encoders report joint angles precisely",
+        "Inertial units measure acceleration and angular rate",
+        "Cameras and lidar observe the environment",
+        "Force and torque sensors detect contact",
+        "Sensors are noisy, biased, and delayed",
+        "Filters fuse measurements into one estimate"
+      ],
+      "diagram": {
+        "type": "flow",
+        "nodes": [
+          "Raw signals",
+          "Filtering",
+          "Sensor fusion",
+          "State estimate"
+        ]
+      },
+      "narration": "Every robot depends on sensors, and every sensor lies a little. Encoders attached to motor shafts or joints report angles with excellent precision, which makes them the backbone of joint control. Inertial measurement units combine accelerometers and gyroscopes to measure linear acceleration and angular rate. They update quickly, but they drift over time, because small biases integrate into large errors. Lidar uses laser pulses to measure distances directly, producing point clouds of the surroundings. Force and torque sensors, often placed at a wrist or within a joint, detect contact and allow a robot to handle delicate objects or work safely with people. Each sensor has characteristic strengths and weaknesses. Encoders are precise but blind to the outside world. Cameras are informative but sensitive to lighting. Lidar is accurate but can be expensive and sometimes confused by reflective surfaces. Good robots combine sensors so that the weaknesses of one are compensated by the strengths of another. This process is called sensor fusion. A common tool is the Kalman filter, which maintains a probabilistic estimate of the robot's state and updates it as each new measurement arrives, weighting each measurement by its expected reliability. The flow on the slide summarizes the pipeline. Raw signals are filtered to remove noise, fused with other measurements, and finally expressed as a state estimate that the controller can trust. "
+    },
+    {
+      "id": "13",
+      "layout": "split",
+      "title": "Actuators and Drive Systems",
+      "bullets": [
+        "Electric motors offer precise, controllable motion",
+        "Gearboxes trade speed for torque",
+        "Hydraulics deliver very high force",
+        "Pneumatics provide fast, compliant motion",
+        "Actuator choice depends on power, precision, and safety"
+      ],
+      "diagram": {
+        "type": "flow",
+        "nodes": [
+          "Controller command",
+          "Motor driver",
+          "Motor and gearbox",
+          "Joint torque"
+        ]
+      },
+      "narration": "Actuators turn energy into motion, and their choice shapes everything else about a robot. Electric motors dominate modern robotics. Brushless DC motors, in particular, combine high efficiency with excellent controllability, and they are widely used in joints, wheels, and grippers. A motor by itself usually produces high speed and low torque, which is rarely what a robot joint needs. A gearbox trades speed for torque, reducing the output speed while multiplying the force available at the joint. Gearboxes also introduce friction, backlash, and flexibility, which engineers must model and compensate. Hydraulic actuators use pressurized fluid to deliver very high force in a compact package. They power heavy construction machines and some large legged robots, but they require pumps, valves, hoses, and careful maintenance. Pneumatic actuators use compressed air. They are fast, inexpensive, and naturally compliant, which makes them attractive for gripping and for safe interaction with people, although their precise control is more difficult. Every actuator must be driven by electronics that supply the right current or voltage at the right moment. The flow on the slide shows this path. A controller issues a command, a motor driver amplifies it, the motor and gearbox generate torque, and the joint responds. An actuator that is excellent for a factory arm may be dangerous for a home assistant. Always design for the environment where the robot will truly work."
+    },
+    {
+      "id": "14",
+      "layout": "split",
+      "title": "Feedback Control and the PID Controller",
+      "bullets": [
+        "A controller compares desired and measured values",
+        "Proportional action responds to the current error",
+        "Integral action removes persistent offset",
+        "Derivative action anticipates changes in error",
+        "Gains must be tuned to avoid instability"
+      ],
+      "diagram": {
+        "type": "flow",
+        "nodes": [
+          "Setpoint",
+          "PID controller",
+          "Robot joint",
+          "Measured state"
+        ],
+        "loop": [
+          3,
+          1
+        ],
+        "loop_label": "error = setpoint minus measured"
+      },
+      "narration": "Feedback control is the mechanism that allows a robot to correct its own errors, and it is one of the most important ideas in engineering. The basic structure is simple. A setpoint specifies the desired state, such as a joint angle. The sensor measures the actual state. The difference between them is the error. A controller computes a command from that error, and the actuator responds, changing the state, which is measured again. The loop continues. The most widely used controller is the proportional integral derivative controller, abbreviated PID. Its proportional term produces a correction proportional to the current error. Larger error produces a stronger response. The integral term accumulates error over time and eliminates steady offsets, such as the sag caused by gravity on an arm. The derivative term responds to the rate of change of error, anticipating overshoot and damping oscillations. Each term has a gain, and choosing these gains is called tuning. Too little proportional gain produces sluggish behavior. Too much produces oscillation or instability. Too much integral gain causes overshoot and slow recovery. Stability is the central concern. A controller that drives a robot into violent oscillation is dangerous, not merely inaccurate. In later courses, you will analyze stability formally and design controllers for complex, multi-joint systems, but the intuition begins here: measure, compare, correct, and verify."
+    },
+    {
+      "id": "15",
+      "layout": "bullets",
+      "title": "Safety and Responsibility",
+      "bullets": [
+        "Robots share workspaces with people",
+        "Standards such as ISO 10218 guide industrial robot safety",
+        "Collaborative robots limit speed and force",
+        "Emergency stops must be reliable and easy to reach",
+        "Risk assessment comes before any deployment",
+        "Human dignity and oversight remain central"
+      ],
+      "narration": "Robots move, and moving machines can cause harm. Safety is therefore a foundational requirement, not an afterthought. International standards such as ISO 10218 provide requirements for the design, integration, and use of industrial robots. Collaborative robots may limit speed, monitor force, and stop when contact is detected. Engineers apply these ideas through risk assessment, a structured process that identifies hazards, estimates their severity and likelihood, and reduces risk through design, guarding, and procedures. Emergency stops must be reliable, clearly marked, and reachable without reaching into danger. Software safety is equally important. Sensors can fail, code can contain errors, and networks can drop messages. A safe robot assumes these failures will occur and responds in a predictable, protective manner. Beyond technical standards lies a moral dimension. A robot is a tool operated by people and used for the benefit of people. Designers must consider who will be affected, including workers whose tasks change, patients who depend on assistance, and children who may encounter a machine in a home or school. Responsible engineers ask not only whether a robot works, but whether it deserves the trust placed in it. At Triune Biblical University Global Extension, we teach that technical excellence and care for others belong together. The safest robot is the one designed by people who value every human being in its path."
+    },
+    {
+      "id": "16",
+      "layout": "bullets",
+      "title": "Applications Across Industries",
+      "bullets": [
+        "Manufacturing: welding, painting, and precision assembly",
+        "Healthcare: surgical assistance and rehabilitation devices",
+        "Logistics: warehouse picking and autonomous transport",
+        "Agriculture: harvesting, weeding, and crop monitoring",
+        "Exploration: planetary rovers and underwater vehicles",
+        "Disaster response: search, inspection, and hazardous access"
+      ],
+      "image": "assets/neural_network.png",
+      "narration": "Robotics now touches nearly every sector of modern life. In manufacturing, robotic arms weld car bodies, paint surfaces, and assemble electronics with a repeatability no human can match over long shifts. Collaborative robots extend this capability into smaller workshops. In healthcare, surgical systems give surgeons enhanced precision and stability through minimally invasive incisions, while rehabilitation robots help patients regain movement after injury. In logistics, warehouse robots retrieve goods from shelves, sort parcels, and move pallets, while autonomous vehicles carry materials across large facilities. Agriculture is adopting robots for harvesting delicate fruit, removing weeds without broad chemical spraying, and monitoring crop health from the air and ground. In exploration, planetary rovers carry instruments across alien terrain, and underwater vehicles survey the deep ocean and maintain offshore structures. In disaster response, robots search collapsed buildings, inspect damaged infrastructure, and enter environments too dangerous for rescuers. Each application makes trade-offs. Surgical robots demand exceptional precision and certification. Agricultural robots must withstand weather and dust. Disaster robots must be rugged, communicative, and easy to operate under stress. As you study these examples, ask the questions introduced earlier. What task must be done? What must the robot sense and do? Who benefits, and who might be exposed to risk?",
+      "narration_extra": [
+        "Before we close the applications, consider the economics. A robot is an investment, and its value depends on utilization, maintenance, training, and the cost of the tasks it replaces or improves. Small businesses may find collaborative robots affordable, while large factories invest in fully automated lines. Engineers must communicate these trade-offs honestly, avoiding both hype and dismissal. A good robotics project begins with a clearly defined task, measurable success criteria, and a realistic plan for integration with existing people and processes. Often the most valuable robot is not the most impressive one, but the one that reliably solves a real problem for real people."
+      ]
+    },
+    {
+      "id": "17",
+      "layout": "bullets",
+      "title": "Key Takeaways",
+      "bullets": [
+        "A robot senses, computes, and acts through a physical body",
+        "Four subsystems: structure, actuation, sensing, computation",
+        "Coordinate frames and transforms describe pose precisely",
+        "Forward kinematics finds the hand; inverse kinematics reaches a target",
+        "Sensor fusion turns noisy measurements into reliable estimates",
+        "Feedback control, safety, and ethics keep robots trustworthy"
+      ],
+      "narration": "Let us consolidate what we have learned. First, a robot is a physically embodied system that senses, computes, and acts. These three ingredients define the discipline. Second, every robot can be understood through four subsystems: structure, actuation, sensing, and computation. Third, robots come in families, from industrial arms to mobile platforms, humanoids, and social machines, and each family faces distinct engineering trade-offs. Fourth, mathematics gives us the language of motion. Coordinate frames and homogeneous transforms describe pose. Forward kinematics computes where the hand is, and inverse kinematics determines how to get it where it needs to be. Fifth, sensors are imperfect witnesses, so fusion and filtering turn noisy measurements into reliable estimates. Sixth, actuators and feedback control close the loop, allowing machines to correct their own errors. The PID controller is the first tool most roboticists learn, and it remains essential. Seventh, safety and ethics are inseparable from good engineering. Standards, risk assessment, and human oversight protect the people who share a robot's world. If you remember one principle from this lecture, remember that a robot is only as trustworthy as the care taken in every layer of its design. Sensing, reasoning, and acting must be engineered together, and people must remain at the center of every decision."
+    },
+    {
+      "id": "18",
+      "layout": "cover",
+      "title": "Looking Ahead",
+      "subtitle": "Next lecture: AI.103 Machine Learning",
+      "image": "assets/robot_arm.png",
+      "narration": "We have reached the end of our introductory lecture on robotics fundamentals. You have seen what a robot is, the four subsystems that make it work, and the families of machines that populate today's factories, hospitals, farms, and laboratories. You have begun to speak the language of coordinate frames, kinematics, and control, and you have considered the safety responsibilities that accompany every physical machine. Your next step is AI.103, Machine Learning, where we will explore how robots and other systems learn patterns from data. Machine learning will give robots new abilities to recognize objects, predict outcomes, and improve their performance, but it will also raise new questions about reliability and fairness. Before the next session, review the kinematics examples in this lecture, practice describing a simple robot's pose in words, and prepare questions about anything that remains unclear. Robotics rewards patience, careful measurement, and persistence. Every machine that works reliably today was once a prototype that failed many times. Thank you for your attention, and may your study be marked by diligence, wisdom, and joy. This lecture was presented by Triune Biblical University Global Extension, USA. I look forward to meeting you in the next session."
+    }
+  ]
+}
