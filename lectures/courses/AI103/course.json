@@ -1,0 +1,360 @@
+{
+  "code": "AI.103",
+  "title": "Machine Learning",
+  "year": 1,
+  "semester": 1,
+  "credit_hours": 2.7,
+  "author_footer": "TRIUNE BIBLICAL UNIVERSITY GLOBAL EXTENSION, USA",
+  "voice_id": "voice-00",
+  "slides": [
+    {
+      "id": "01",
+      "layout": "cover",
+      "title": "Machine Learning",
+      "subtitle": "AI.103  |  Year 1, Semester 1  |  Introductory Lecture",
+      "image": "assets/cover_bg.png",
+      "narration": "Welcome to AI 103, Machine Learning. This course builds directly on the foundations you have already encountered. In artificial intelligence, we have seen search, logic, and the rational agent, and in robotics we have studied sensing, control, and motion. Machine learning is the approach that lets a system improve its behavior from experience, rather than from rules that someone wrote by hand. It powers spam filters, medical image analysis, language translation, recommendation systems, and the perception systems of autonomous robots. Over the next thirty minutes, we will learn the vocabulary of data, features, and labels, examine the major families of learning algorithms, and understand how we decide whether a model truly works. We will also discuss the responsibility that accompanies learning systems, because a model learns whatever patterns its data contain, including patterns we would prefer to avoid. As a student at Triune Biblical University Global Extension, you are invited to approach this field with mathematical care, intellectual honesty, and a commitment to justice. Let us begin with a simple question: what does it mean for a machine to learn?"
+    },
+    {
+      "id": "02",
+      "layout": "bullets",
+      "title": "Lecture Roadmap",
+      "bullets": [
+        "What machine learning means, and where the term came from",
+        "Data, features, labels, and the learning pipeline",
+        "Supervised, unsupervised, and reinforcement learning",
+        "Generalization, overfitting, and honest evaluation",
+        "Gradient descent: how models actually learn",
+        "Fairness, privacy, and professional responsibility"
+      ],
+      "narration": "Here is the road ahead. We will begin with a working definition of machine learning and its historical origins. Then we will examine the vocabulary of data, including features, labels, and examples. Next, we will survey the three major paradigms of learning: supervised, unsupervised, and reinforcement learning. We will study the principal supervised methods, including regression and classification, and the loss functions that measure how wrong a model is. We will explore the central challenge of generalization, which asks whether a model performs well on examples it has never seen. We will see how training, validation, and test data protect us from self-deception, and how overfitting and underfitting arise. We will discuss evaluation metrics and the training procedure known as gradient descent. Finally, we will consider fairness, bias, and the duties of engineers who deploy learning systems. Each topic is a foundation for the courses that follow, including deep learning, reinforcement learning, and computer vision. Take notes freely, and do not hesitate to ask questions when a term feels unfamiliar."
+    },
+    {
+      "id": "03",
+      "layout": "bullets",
+      "title": "What Is Machine Learning?",
+      "bullets": [
+        "Learning means improving task performance through experience",
+        "Arthur Samuel popularized the term in 1959",
+        "Tom Mitchell defined learning with task, experience, and performance",
+        "The engineer specifies data, model family, and success measure",
+        "The machine discovers the rules from examples"
+      ],
+      "image": "assets/robot_arm.png",
+      "narration": "The term machine learning was popularized in 1959 by Arthur Samuel, a pioneer at IBM, who taught a computer to play checkers well enough to compete with strong human players. Samuel's program improved by playing against itself and by adjusting how it evaluated board positions. This idea was revolutionary. Instead of writing every rule for winning, the programmer described a way for the machine to learn from experience. In 1997, Tom Mitchell offered a more precise definition. A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E. Consider a spam filter. The task is classifying messages. The experience is a collection of messages labeled as spam or legitimate. The performance measure might be the fraction of messages classified correctly. As the filter sees more examples, its accuracy may rise. That rise is learning in the precise sense. Notice what has changed. The engineer no longer specifies every rule. Instead, the engineer specifies the task, the data, the model family, and the way success will be measured. The machine finds the rules. As you look at the robotic arm on this slide, imagine how a learned controller might refine its movements through practice, and how the quality of its experience determines what it can achieve."
+    },
+    {
+      "id": "04",
+      "layout": "cards",
+      "title": "The Learning Pipeline",
+      "cards": [
+        {
+          "heading": "Data",
+          "text": "Examples described by features, with labels when the correct answer is known."
+        },
+        {
+          "heading": "Model",
+          "text": "A parameterized function that maps inputs to predictions, such as a line, a tree, or a network."
+        },
+        {
+          "heading": "Learning Algorithm",
+          "text": "Adjusts the parameters to reduce a loss that measures prediction error."
+        },
+        {
+          "heading": "Evaluation",
+          "text": "Tests on held-out examples to estimate how well the model generalizes."
+        }
+      ],
+      "narration": "Every machine learning system, whether it recognizes faces or predicts rainfall, shares four components. The first is data, a collection of examples. Each example is described by features, which are measurable properties such as the pixels of an image, the temperature on a given day, or the words in an email. When the correct answer is known, the example also carries a label. The second component is the model, a mathematical function with adjustable parameters that transforms features into predictions. A model might be a straight line, a decision tree, or a deep neural network. The third component is the learning algorithm, a procedure that adjusts the parameters so that the model's predictions match the training examples more closely. To guide this adjustment, we define a loss function, which assigns a numerical penalty to each error. Training means reducing the average loss. The fourth component is evaluation. A model that performs well on the examples it was trained on may still fail in the real world. We therefore test it on examples held back from training, and we estimate how well it generalizes. These four components form a pipeline. Weakness in any one of them spoils the whole system. Poor data yields poor models, a flawed loss function optimizes the wrong goal, and inadequate evaluation hides failures until they harm someone. Keep this pipeline in mind throughout the course, because nearly every technique we study answers one of these four questions."
+    },
+    {
+      "id": "05",
+      "layout": "diagram",
+      "title": "The Machine Learning Lifecycle",
+      "diagram": {
+        "type": "cycle",
+        "nodes": [
+          "Collect data",
+          "Train model",
+          "Evaluate",
+          "Deploy and monitor"
+        ]
+      },
+      "caption": "Learning systems are maintained continuously, not finished once.",
+      "narration": "Machine learning is rarely a single event. It is a lifecycle, and the diagram shows the stages that practitioners repeat. The cycle begins with data collection. Engineers gather examples, decide what each example should contain, and document where the data came from. The second stage is training, in which the learning algorithm fits the model's parameters to the training examples. The third stage is evaluation. The model is tested on examples it has not seen, and its performance is measured with appropriate metrics. If the results are poor, the engineer returns to the earlier stages. Perhaps more data is needed, the features should be redesigned, or the model family should change. The fourth stage is deployment, in which the model is placed into a real application, such as a medical triage tool, a fraud detector, or a robot's perception module. Deployment is not the end. The world changes, and so do the data. Customer behavior shifts, sensors age, and language evolves. A deployed model must be monitored for performance degradation, a phenomenon often called data drift, and retrained when necessary. Many failures of machine learning systems arise not during training, but months after deployment, when no one is watching. A responsible team therefore treats the lifecycle as continuous. Each cycle teaches the team something about the problem, and each improvement must be checked against the goal the system was meant to serve.",
+      "narration_extra": [
+        "Consider a hospital that deploys a model to predict patient readmission. In the first year, the model performs well. Then the hospital adopts a new electronic records system, and the coding of diagnoses changes. The model's inputs now mean something slightly different, and its accuracy quietly falls. Only careful monitoring reveals the problem. The lesson is simple but profound. A model is not a product that is finished once it is built. It is a living commitment that must be tended."
+      ]
+    },
+    {
+      "id": "06",
+      "layout": "diagram",
+      "title": "Families of Machine Learning",
+      "diagram": {
+        "type": "tree",
+        "root": {
+          "label": "Machine Learning",
+          "children": [
+            {
+              "label": "Supervised",
+              "children": [
+                {
+                  "label": "Classification",
+                  "children": []
+                },
+                {
+                  "label": "Regression",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "Unsupervised",
+              "children": [
+                {
+                  "label": "Clustering",
+                  "children": []
+                },
+                {
+                  "label": "Dimensionality reduction",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "label": "Reinforcement",
+              "children": [
+                {
+                  "label": "Policy learning",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "caption": "Each family answers a different kind of question.",
+      "narration": "Machine learning algorithms are commonly organized into three families, distinguished by the kind of feedback they receive. Look at the tree on your screen. Supervised learning uses labeled examples. Its tasks are classification, which predicts a category such as spam or legitimate, and regression, which predicts a numerical quantity such as tomorrow's temperature or the price of a house. Unsupervised learning works with unlabeled data. Its goal is to discover structure. Clustering groups similar examples together, perhaps revealing customer segments or species of plants. Dimensionality reduction compresses high-dimensional data into fewer informative dimensions, which helps visualization and removes redundancy. Reinforcement learning learns from interaction. An agent acts in an environment, receives rewards or penalties, and gradually learns a policy, which is a rule for choosing actions. These families are not rigid boundaries. Semi-supervised learning uses a small amount of labeled data together with a large amount of unlabeled data, and self-supervised learning creates its own labels from the structure of the data itself, a technique behind many modern language models. If you have labeled examples and a clear target, supervised learning is often the most direct path. If you need to explore unknown structure, unsupervised methods help. If you must learn through action, reinforcement learning becomes essential."
+    },
+    {
+      "id": "07",
+      "layout": "bullets",
+      "title": "Classic Supervised Methods",
+      "bullets": [
+        "Linear regression fits a weighted sum to numerical targets",
+        "Logistic regression estimates class probabilities",
+        "Decision trees split data with simple questions",
+        "k-nearest neighbors predicts from similar examples",
+        "Loss functions measure how wrong predictions are",
+        "Support vector machines seek the widest separating margin"
+      ],
+      "narration": "Let us examine several classic supervised methods, beginning with the simplest. Linear regression assumes that the target is approximately a weighted sum of the features. Given examples of houses, with features such as floor area and number of rooms, linear regression learns weights that predict price. The quality of the fit is judged by a loss function, commonly the mean squared error, which averages the squared differences between predictions and true values. Logistic regression adapts this idea to classification. Rather than predicting a number, it estimates the probability that an example belongs to a class, by passing a weighted sum through a sigmoid function that squashes values between zero and one. Decision trees take a different approach. They ask a sequence of simple questions about the features, such as whether a temperature exceeds a threshold, and they divide the data into smaller and smaller groups until the groups are nearly pure. The k-nearest neighbors method makes predictions by finding the most similar training examples and letting them vote. Support vector machines seek the separating boundary that leaves the widest margin between classes, a geometric principle with strong theoretical foundations. No method is universally best. The right choice depends on the data's size, the number of features, the need for interpretability, and the cost of errors. A skilled practitioner compares several methods honestly rather than favoring a favorite."
+    },
+    {
+      "id": "08",
+      "layout": "diagram",
+      "title": "Milestones in Machine Learning",
+      "diagram": {
+        "type": "timeline",
+        "nodes": [
+          "1959\nSamuel's checkers program",
+          "1986\nBackpropagation popularized",
+          "1995\nSupport vector machines",
+          "2001\nRandom forests introduced",
+          "2012\nAlexNet and deep learning",
+          "2016\nAlphaGo defeats Lee Sedol"
+        ]
+      },
+      "caption": "Progress came from new algorithms, larger datasets, and faster computers.",
+      "narration": "Machine learning has advanced through a sequence of ideas, each enabled by the ones before. In 1959, Arthur Samuel's checkers program showed that a computer could improve through play. In 1986, a paper by David Rumelhart, Geoffrey Hinton, and Ronald Williams popularized backpropagation, the algorithm that computes how each weight in a multilayer network should change. Backpropagation made it practical to train networks with hidden layers, although computers of that era were far too slow for large problems. In 1995, Corinna Cortes and Vladimir Vapnik published work on support vector machines, which combined strong theory with excellent results on many classification tasks. In 2001, Leo Breiman introduced random forests, ensembles of decision trees that vote together and resist overfitting. In 2012, AlexNet, a deep convolutional network trained on graphics processors, won the ImageNet image recognition competition by a wide margin, launching the modern era of deep learning. In 2016, DeepMind's AlphaGo defeated the world champion Go player Lee Sedol, a game long considered too complex for brute-force search. Each of these milestones depended on three ingredients: better algorithms, larger datasets, and faster hardware. Notice that the most celebrated breakthroughs rarely arose from a single insight. They emerged from communities that shared data, code, and benchmarks, and that tested ideas rigorously against one another."
+    },
+    {
+      "id": "09",
+      "layout": "split",
+      "title": "Training, Validation, and Test Sets",
+      "bullets": [
+        "Split data into training, validation, and test sets",
+        "Fit parameters on the training set",
+        "Tune hyperparameters with the validation set",
+        "Report final performance once, on the test set",
+        "Leakage of test data invalidates the estimate"
+      ],
+      "diagram": {
+        "type": "flow",
+        "nodes": [
+          "Training set",
+          "Fit parameters",
+          "Validation set",
+          "Final test set"
+        ]
+      },
+      "narration": "A model that memorizes its training data has learned nothing useful. The central safeguard against self-deception is the separation of data into distinct sets. The training set is used to fit the model's parameters, meaning the adjustments that minimize loss. The validation set is used to make choices about the model, such as the number of layers, the strength of regularization, or the depth of a tree. These choices are called hyperparameters, because they govern the learning process rather than being learned from it directly. The test set is reserved until the end. It provides an honest estimate of how the final model will perform on new data, and it should be consulted only once, after all decisions are made. The flow on the slide shows the order. Parameters are fitted on training data, hyperparameters are tuned on validation data, and the final model is assessed on the test set. Data leakage occurs when information from the test set influences any earlier step, perhaps through careless normalization or repeated peeking at test results. Leakage produces overly optimistic results, and it is one of the most common errors in published and commercial machine learning. Guard the test set jealously. It is the only witness you have that the model will survive contact with reality."
+    },
+    {
+      "id": "10",
+      "layout": "split",
+      "title": "Underfitting, Overfitting, and Generalization",
+      "bullets": [
+        "Underfitting: the model is too simple for the pattern",
+        "Overfitting: the model memorizes noise in the training data",
+        "Good models balance flexibility with generalization",
+        "Regularization penalizes unnecessary complexity",
+        "Learning curves reveal which problem is present"
+      ],
+      "diagram": {
+        "type": "flow",
+        "nodes": [
+          "Too simple: underfits",
+          "Balanced: generalizes",
+          "Too complex: overfits"
+        ]
+      },
+      "narration": "The goal of machine learning is generalization, which means performing well on new examples drawn from the same underlying process. Two failures threaten generalization. The first is underfitting. An underfit model is too simple to capture the true pattern. A straight line fitted to a curved relationship will miss systematically, whether we look at training or test data. The second failure is overfitting. An overfit model is too flexible. It memorizes the random noise in the training examples, achieving excellent training performance while failing on new data. Imagine a student who memorizes past exam answers without understanding the subject. Such a student performs well on those exact questions and poorly on new ones. The flow on the slide sketches the spectrum. A model that is too simple underfits, a model that is too complex overfits, and somewhere between lies a balanced model that generalizes. Engineers manage this balance in several ways. Regularization adds a penalty for large or unnecessary parameter values, discouraging complexity. Early stopping halts training when validation performance begins to deteriorate. Collecting more data often reduces overfitting, because noise becomes less influential when examples are plentiful. Learning curves, which plot performance against training set size or training time, help diagnose which problem is present. Diagnosis comes before treatment, and honest measurement is the foundation of both."
+    },
+    {
+      "id": "11",
+      "layout": "cards",
+      "title": "Unsupervised Learning",
+      "cards": [
+        {
+          "heading": "Clustering",
+          "text": "Groups similar examples together without labels, as in customer segmentation with k-means."
+        },
+        {
+          "heading": "Dimensionality Reduction",
+          "text": "Compresses many features into fewer components, such as principal component analysis."
+        },
+        {
+          "heading": "Anomaly Detection",
+          "text": "Flags examples that deviate from learned normal patterns, useful for fraud and equipment monitoring."
+        }
+      ],
+      "narration": "Unsupervised learning begins where labels end. Its data contain no correct answers, so the algorithm must discover structure on its own, and the quality of the result is judged by usefulness rather than by matching a known target. The first major family is clustering. The k-means algorithm assigns each example to one of k clusters by repeatedly computing cluster centers and reassigning examples to the nearest center. A business might cluster customers by purchasing behavior to design better offers, or a biologist might cluster gene expression profiles to identify related cells. The second family is dimensionality reduction. Real datasets often contain hundreds or thousands of features, many of which are correlated. Principal component analysis finds the directions of greatest variance in the data and projects the examples onto a smaller set of directions that preserve most of the information. The third application is anomaly detection. A model that has learned what normal behavior looks like can flag examples that deviate sharply. Banks use such methods to detect unusual transactions, and factories use them to notice vibrations that precede equipment failure. A word of caution is appropriate here. Unsupervised results can look convincing even when they are meaningless. Clusters may reflect accidents of sampling or the scaling of features. Always validate discoveries against independent evidence and ask whether they serve the purpose for which they were sought."
+    },
+    {
+      "id": "12",
+      "layout": "split",
+      "title": "Evaluation Metrics",
+      "bullets": [
+        "Accuracy can mislead when classes are imbalanced",
+        "Precision: of predicted positives, how many are correct",
+        "Recall: of actual positives, how many were found",
+        "F1 score balances precision and recall",
+        "The confusion matrix organizes every outcome"
+      ],
+      "diagram": {
+        "type": "flow",
+        "nodes": [
+          "Predictions",
+          "Confusion matrix",
+          "Precision and recall",
+          "F1 score"
+        ]
+      },
+      "narration": "Choosing how to measure performance is as important as choosing the model. Consider a disease that affects one person in a thousand. A model that always predicts healthy achieves ninety-nine point nine percent accuracy and is completely useless. This example shows why accuracy alone can deceive. For classification tasks, we organize outcomes in a confusion matrix, which counts true positives, false positives, true negatives, and false negatives. From these counts, several metrics follow. Precision asks, of the examples the model labeled positive, how many truly were positive. Recall asks, of the examples that truly were positive, how many the model found. There is a natural tension between them. A cautious model may achieve high precision by flagging only obvious cases, but it will miss many genuine ones, lowering recall. A sensitive model catches most cases but raises many false alarms. The F1 score is the harmonic mean of precision and recall, a single number that rewards balance and penalizes extremes. For regression tasks, we use different measures, such as mean absolute error or root mean squared error, which describe the typical size of errors in the original units. Good evaluation also considers the cost of mistakes. A false negative in cancer screening may be far more serious than a false positive that leads to a further test. Metrics must therefore reflect the real consequences of decisions. Ask always what kind of error matters most, and to whom."
+    },
+    {
+      "id": "13",
+      "layout": "split",
+      "title": "How Models Learn: Gradient Descent",
+      "bullets": [
+        "Training minimizes a loss function over the parameters",
+        "The gradient points toward steepest increase in loss",
+        "Stepping against the gradient reduces the loss",
+        "The learning rate controls the size of each step",
+        "Stochastic variants use small batches of data"
+      ],
+      "diagram": {
+        "type": "flow",
+        "nodes": [
+          "Initialize weights",
+          "Compute loss",
+          "Compute gradient",
+          "Update weights"
+        ],
+        "loop": [
+          3,
+          1
+        ],
+        "loop_label": "repeat until loss stops improving"
+      },
+      "narration": "How does a model actually learn? For most modern methods, the answer is gradient descent. Imagine a landscape in which the height at any point represents the loss for a particular setting of the model's parameters. Our goal is to find a low point. We begin at an arbitrary location, meaning arbitrary initial weights, and measure the slope of the surface there. The gradient is a vector that points in the direction of steepest increase. To descend, we step in the opposite direction. The size of each step is controlled by the learning rate. If the step is too small, training is painfully slow. If it is too large, the parameters overshoot the valley and may diverge. The procedure then repeats. We compute the loss, compute the gradient, update the weights, and continue until the loss stops improving meaningfully. Calculating the gradient for millions of parameters is feasible because of backpropagation, which applies the chain rule of calculus efficiently through the network. For large datasets, computing the gradient over every example at each step is expensive. Stochastic gradient descent instead estimates the gradient from a small random batch of examples. The estimate is noisy, but the updates are fast, and the noise can even help the optimizer escape poor regions. The flow on the slide captures this loop. Each cycle makes the model a little less wrong, and over many cycles, a simple rule of descent produces systems of remarkable capability."
+    },
+    {
+      "id": "14",
+      "layout": "split",
+      "title": "Bias, Fairness, and Data Quality",
+      "bullets": [
+        "Models learn the patterns present in their training data",
+        "Historical bias can be reproduced and amplified",
+        "Measurement errors and sampling gaps distort learning",
+        "Fairness requires testing performance across groups",
+        "Audits, documentation, and correction are ongoing duties"
+      ],
+      "diagram": {
+        "type": "flow",
+        "nodes": [
+          "Biased data",
+          "Learned model",
+          "Harmful decisions",
+          "Audit and correct"
+        ]
+      },
+      "narration": "Machine learning systems are mirrors of their data. They learn the patterns that the data contain, whether those patterns reflect wisdom, accident, or injustice. If historical hiring records show fewer women in leadership, a model trained on those records may learn to undervalue applications from women, reproducing the very inequity we hope to escape. If medical data overrepresent certain populations, the model may perform poorly for others. Such problems are not hypothetical. The flow on the slide describes the danger. Biased data produce a learned model, which then makes decisions that can harm people, often at scale and with an appearance of objectivity. Breaking this chain requires deliberate effort at several points. Engineers should examine who is represented in the data, and who is missing. They should measure performance separately for different groups, because an overall accuracy figure can hide serious disparities. They should document the data source, the intended use, and the known limitations of the model, a practice sometimes called creating model cards. Where errors are unacceptable, they should preserve human review and clear channels for appeal. Fairness is not a single mathematical formula, because different definitions can conflict. Choosing among them is an ethical and social decision, not merely a technical one. The goal is not perfect neutrality, which is impossible, but responsible stewardship of systems that affect real lives."
+    },
+    {
+      "id": "15",
+      "layout": "bullets",
+      "title": "Data Ethics, Privacy, and Stewardship",
+      "bullets": [
+        "Collect only the data a task truly requires",
+        "Respect consent, privacy, and legal obligations",
+        "Make experiments reproducible and well documented",
+        "Communicate uncertainty honestly to decision makers",
+        "Keep humans accountable for consequential decisions",
+        "Serve people, not merely metrics"
+      ],
+      "narration": "Learning systems require data, and data are often about people. Responsible practice therefore begins with restraint. Collect only the information a task truly requires, and protect sensitive attributes wherever possible. Respect the consent of those whose information is used, and comply with privacy laws and professional codes. Reproducibility is another professional duty. A result that cannot be repeated is not a finding but an anecdote. Record the data version, the code, the random seeds, the hyperparameters, and the evaluation protocol. Good documentation allows colleagues to verify your work and to detect errors you may have missed. Honesty about uncertainty is equally important. Machine learning produces probabilities and estimates, not certainties. When presenting results to managers, clinicians, or the public, communicate what the model does well, where it fails, and how confident one may reasonably be. Accountability must remain with people. A model may recommend a loan decision or a medical triage, but a responsible institution keeps humans in charge of consequential choices. Finally, metrics are instruments, not ends in themselves. A system that optimizes a click count while harming its users has failed, however impressive its numbers. At Triune Biblical University Global Extension, we teach that such service is grounded in love for neighbor and respect for the dignity of every person whose data appears in a table."
+    },
+    {
+      "id": "16",
+      "layout": "bullets",
+      "title": "Applications Across Industries",
+      "bullets": [
+        "Medicine: imaging support, risk prediction, drug discovery",
+        "Finance: fraud detection and credit risk assessment",
+        "Commerce: recommendations and demand forecasting",
+        "Language: translation, speech recognition, summarization",
+        "Climate: weather forecasting and resource planning",
+        "Robotics: perception, control, and adaptive behavior"
+      ],
+      "image": "assets/neural_network.png",
+      "narration": "Machine learning now supports decisions across nearly every field of human activity. In medicine, learning systems help radiologists detect suspicious patterns in scans, estimate the risk of complications, and accelerate the search for new drug candidates. In finance, models flag unusual transactions that may indicate fraud, and they help lenders assess credit risk, although fairness requirements apply with particular force in lending. Commerce relies heavily on recommendation systems, which suggest products, music, or articles based on past behavior, and on demand forecasting, which helps retailers and manufacturers plan inventory. Language technologies, including speech recognition, machine translation, and document summarization, have become part of everyday life for many people. Climate science uses learning methods to improve weather forecasts, to analyze satellite imagery, and to model the operation of power grids and water systems. Robotics depends on machine learning for perception, recognizing objects and terrain, and for control, adapting motions when conditions change. Each application illustrates the pipeline we studied earlier. Each requires appropriate data, a suitable model, careful evaluation, and monitoring after deployment. As you encounter examples in your own studies and work, ask whether the data represent the people affected, whether the metric measures what truly matters, and whether a human being can correct the system when it is wrong.",
+      "narration_extra": [
+        "Consider the difference between a demonstration and a deployment. A demonstration shows that a model works on a carefully chosen dataset. A deployment must work on messy data, under time pressure, across diverse users, and for years. Many promising projects fail in the gap between these two states. Closing that gap requires data engineering, software reliability, user training, and clear ownership. Machine learning is therefore a team discipline. Statisticians, software engineers, domain experts, and ethicists must collaborate, because no single person can anticipate every consequence of a system used at scale."
+      ]
+    },
+    {
+      "id": "17",
+      "layout": "bullets",
+      "title": "Key Takeaways",
+      "bullets": [
+        "Machine learning improves performance from experience, not hand-written rules",
+        "Data, model, algorithm, and evaluation form one pipeline",
+        "Supervised, unsupervised, and reinforcement learning answer different questions",
+        "Generalization is the goal; overfitting is the central danger",
+        "Gradient descent trains models by repeatedly reducing loss",
+        "Fairness, privacy, and human accountability are essential"
+      ],
+      "narration": "Let us consolidate what we have learned. First, machine learning is the discipline of improving performance through experience rather than through hand-written rules. Second, every learning system is a pipeline of data, model, learning algorithm, and evaluation, and weakness at any stage undermines the whole. Third, the three families of learning answer different questions. Supervised methods predict known targets from labeled examples. Unsupervised methods discover structure in unlabeled data. Reinforcement methods learn policies through action and reward. Fourth, generalization is the true goal. Overfitting and underfitting are the central dangers, and careful separation of training, validation, and test data protects us from self-deception. Fifth, gradient descent is the engine behind most modern training. Each step reduces the loss a little, and patient repetition yields capable models. Sixth, metrics must reflect real consequences, because accuracy alone can conceal serious failures. Seventh, fairness, privacy, and human accountability are not optional additions. They belong to the design from the beginning. If you remember one principle, remember that a model is only as good as the data, the measurements, and the values that shape it. Engineers who understand this will build systems that serve people faithfully."
+    },
+    {
+      "id": "18",
+      "layout": "cover",
+      "title": "Looking Ahead",
+      "subtitle": "Next lecture: AI.104 Computer Vision",
+      "image": "assets/robot_arm.png",
+      "narration": "We have reached the end of this introductory lecture on machine learning. You have seen what it means for a machine to learn, the components of a learning pipeline, and the families of algorithms that address supervised, unsupervised, and reinforcement problems. You have examined the central challenge of generalization, the discipline of separating training, validation, and test data, and the metrics that reveal true performance. You have also considered the ethical duties that come with learning from human data. Your next step is AI.104, Computer Vision, where you will apply these ideas to images and video, learning how machines interpret visual scenes. Before the next session, review the pipeline diagram from this lecture, consider a dataset you have encountered in daily life, and ask what it might teach a model and what it might fail to represent. Machine learning rewards curiosity and rigorous testing. Expect your first models to disappoint you, and treat each disappointment as information. Thank you for your attention, and may your study be marked by diligence, wisdom, and joy. This lecture was presented by Triune Biblical University Global Extension, USA. I look forward to meeting you in the next session."
+    }
+  ]
+}
